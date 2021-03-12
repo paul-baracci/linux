@@ -1,2 +1,15 @@
 #!/bin/sh
-xrandr --output HDMI1 --primary --mode 1920x1080 --pos 0x0 --rotate normal --output VIRTUAL1 --off --output eDP1 --mode 1366x768 --pos 1920x0 --rotate normal --output VGA1 --off
+
+chosen=$( /bin/echo -e "laptop\nhdmi\ndual" | dmenu -i )
+
+case $chosen in
+        dual)
+        xrandr --output eDP-1 --auto --output HDMI-1 --auto --left-of eDP-1
+        ;;
+        laptop)
+        xrandr --output HDMI-1 --off --output VIRTUAL-1 --off --output eDP-1 --mode 1366x768
+        ;;
+        hdmi)
+        xrandr --output HDMI-1 --auto --output eDP-1 --off
+        ;;
+esac
